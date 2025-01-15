@@ -5,8 +5,8 @@ positive = (number>0)
 zero = (number==0)
 negative = (number<0)
 if positive:
-	print("is positive")
+	print(f"{number} is positive")
 if zero:
-	print("is zero")
+	print(f"{number} is zero")
 if negative:
-	print("is negative")
+	print(f"{number} is negative")
