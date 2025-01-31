@@ -61,10 +61,6 @@ class Rectangle:
     def __repr__(self):
         return f"Rectangle({self.width}, {self.height})"
 
-
-my_rectangle = Rectangle(2, 4)
-print(f"Bye rectangle...")
-try:
-    pass
-except NameError as e:
-    print(f"Erreur après suppression: {e}")
+    def __del__(self):
+        '''Print a message when an instance is deleted'''
+        print("Bye rectangle...")
