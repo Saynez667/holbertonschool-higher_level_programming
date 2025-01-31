@@ -53,15 +53,13 @@ class Rectangle:
         '''return perimeter of rectangle'''
         return 2 * (self.__width + self.__height)
 
+    def __str__(self):
+        if self.__width == 0 or self.__height == 0:
+            return ""
+        '''if width == 0 or height == 0 return a empty string'''
+        '''return # * width for in range for height'''
+        return "\n".join(["#" * self.width for _ in range(self.height)])
 
-def __str__(self):
-    '''if width == 0 or height == 0 return a empty string'''
-    if self.__width == 0 or self.__height == 0:
-        return ""
-    '''return # * width for in range for height'''
-    return "\n".join(["#" * self.width for _ in range(self.height)])
-
-
-def __repr__(self):
-    '''return with repr in f string rectangle '''
-    return f"Rectangle({self.width}, {self.height})"
+    def __repr__(self):
+        '''return with repr in f string rectangle '''
+        return f"Rectangle({self.width}, {self.height})"
