@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''Module for classes rectangle'''
+
+
 class Rectangle:
     '''Represents a rectangle'''
 
