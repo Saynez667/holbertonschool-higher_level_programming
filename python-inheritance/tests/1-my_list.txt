@@ -1,61 +1,59 @@
-The ``1-my_list`` module
-======================
+# Test for MyList class
 
-Using ``MyList``
--------------------
+>>> MyList = __import__('1-my_list').MyList
 
-Import the class:
+# Test with integers
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(4)
+>>> my_list.append(2)
+>>> my_list.append(3)
+>>> my_list.append(5)
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+>>> my_list.print_sorted()
+[1, 2, 3, 4, 5]
+>>> print(my_list)
+[1, 4, 2, 3, 5]
 
-    >>> MyList = __import__('1-my_list').MyList
+# Test with negative numbers
+>>> my_list.append(-1)
+>>> my_list.print_sorted()
+[-1, 1, 2, 3, 4, 5]
 
-Test empty list:
+# Test with duplicate numbers
+>>> my_list.append(4)
+>>> my_list.print_sorted()
+[-1, 1, 2, 3, 4, 4, 5]
 
-    >>> my_list = MyList()
-    >>> print(my_list)
-    []
-    >>> my_list.print_sorted()
-    []
+# Test with empty list
+>>> empty_list = MyList()
+>>> empty_list.print_sorted()
+[]
 
-Test list with one element:
+# Test that the original list is not modified
+>>> original = MyList([5, 4, 3, 2, 1])
+>>> print(original)
+[5, 4, 3, 2, 1]
+>>> original.print_sorted()
+[1, 2, 3, 4, 5]
+>>> print(original)
+[5, 4, 3, 2, 1]
 
-    >>> my_list = MyList([1])
-    >>> print(my_list)
-    [1]
-    >>> my_list.print_sorted()
-    [1]
+# Test with a single element
+>>> single_element = MyList([42])
+>>> single_element.print_sorted()
+[42]
 
-Test list with multiple elements:
+# Test with large numbers
+>>> large_numbers = MyList([1000000, 10000, 100000])
+>>> large_numbers.print_sorted()
+[10000, 100000, 1000000]
 
-    >>> my_list = MyList([1, 4, 2, 3, 5])
-    >>> print(my_list)
-    [1, 4, 2, 3, 5]
-    >>> my_list.print_sorted()
-    [1, 2, 3, 4, 5]
-    >>> print(my_list)
-    [1, 4, 2, 3, 5]
+# Test inheritance
+>>> issubclass(MyList, list)
+True
 
-Test list with negative numbers:
-
-    >>> my_list = MyList([5, -1, 2, -8, 3])
-    >>> print(my_list)
-    [5, -1, 2, -8, 3]
-    >>> my_list.print_sorted()
-    [-8, -1, 2, 3, 5]
-
-Test list with duplicate numbers:
-
-    >>> my_list = MyList([3, 3, 1, 2, 2])
-    >>> print(my_list)
-    [3, 3, 1, 2, 2]
-    >>> my_list.print_sorted()
-    [1, 2, 2, 3, 3]
-
-Test that the original list is not modified:
-
-    >>> my_list = MyList([1, 4, 2, 3, 5])
-    >>> print(my_list)
-    [1, 4, 2, 3, 5]
-    >>> my_list.print_sorted()
-    [1, 2, 3, 4, 5]
-    >>> print(my_list)
-    [1, 4, 2, 3, 5]
+# Test instance type
+>>> isinstance(MyList(), list)
+True
