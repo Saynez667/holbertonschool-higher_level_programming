@@ -18,24 +18,30 @@ class Shape(ABC):
 
 
 class Circle(Shape):
+    '''initialise radius in private class atribut'''
     def __init__(self, radius):
         self.__radius = radius
 
+    '''return for area pi*raidius**2'''
     def area(self):
         return math.pi * (self.__radius ** 2)
 
+    '''return for perimeter 2*pi * radius'''
     def perimeter(self):
         return 2 * math.pi * self.__radius
 
 
 class Rectangle(Shape):
+    '''initialise for private class atribut width and height'''
     def __init__(self, height, width):
         self.__height = height
         self.__width = width
 
+    '''for area height * width'''
     def area(self):
         return self.__height * self.__width
 
+    '''for perimeter return 2* width + height'''
     def perimeter(self):
         return 2 * (self.__width + self.__height)
 
