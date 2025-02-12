@@ -214,3 +214,6 @@ python-inheritance/
 
 * GitHub repository: holbertonschool-higher\_level\_programming
 * Directory: python-inheritance
+
+## Authors
+[Saynez667](https://github.com/Saynez667)
