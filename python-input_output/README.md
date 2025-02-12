@@ -55,7 +55,7 @@ By the end of this project, you should be able to:
 13. Pascal's Triangle 🔺
 
 ## Directory Structure 📂
-
+```bash
 python-input_output/
 │
 ├── 0-read_file.py
@@ -71,3 +71,7 @@ python-input_output/
 ├── 10-student.py
 ├── 11-student.py
 └── 12-pascal_triangle.py
+```
+
+## Authors
+[Saynez667](https://github.com/Saynez667)
