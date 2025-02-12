@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+'''module for create a function'''
+
+
 def pascal_triangle(n):
     """Returns a list of lists of int representing the Pascal triangle of n"""
     if n <= 0:

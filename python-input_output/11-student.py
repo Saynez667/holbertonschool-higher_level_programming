@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+'''module for Class Sutdent'''
+
+
 class Student:
     def __init__(self, first_name, last_name, age):
         """Initialize the student with first name, last name, and age"""
