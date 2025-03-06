@@ -1,6 +1,9 @@
 -- This script that creates the database hbtn_0d_usa
 CREATE DATABASE IF NOT EXISTS hbtn_0d_usa;
 
+-- Switch to the newly created database
+USE hbtn_0d_usa;
+
 -- That create the tables cities in the database hbtn_0d_usa with the following requirements:
 CREATE TABLE IF NOT EXISTS hbtn_0d_usa.cities (
 	id INT UNIQUE AUTO_INCREMENT NOT NULL PRIMARY KEY,
