@@ -1,14 +1,17 @@
 #!/usr/bin/python3
 """
-Script that takes in an argument and displays all values in the `states` table
-of `hbtn_0e_0_usa` where `name` matches the argument, safe from SQL injection.
+Script that safely fetches states matching a given name from `hbtn_0e_0_usa`,
+preventing SQL injection.
 """
 
 import sys
 import MySQLdb
 
 if __name__ == "__main__":
-    # Get arguments from command line
+    """ Main execution: Connects to MySQL, queries the
+    database safely, and prints results. """
+
+    # Get arguments from the command line
     mysql_username = sys.argv[1]
     mysql_password = sys.argv[2]
     database_name = sys.argv[3]
@@ -16,21 +19,21 @@ if __name__ == "__main__":
 
     # Connect to MySQL database
     db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=mysql_username,
-        passwd=mysql_password,
-        db=database_name
+        host="localhost",  # MySQL server host
+        port=3306,  # Default MySQL port
+        user=mysql_username,  # MySQL username
+        passwd=mysql_password,  # MySQL password
+        db=database_name  # Database name
     )
 
-    # Create a cursor object to execute queries
+    # Create a cursor object to execute SQL queries
     cur = db.cursor()
 
-    # Use a parameterized query to prevent SQL injection
-    query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
+    # Execute a parameterized query to prevent SQL injection
+    query = "SELECT * FROM states WHERE BINARY name = %s ORDER BY id ASC"
     cur.execute(query, (state_name_searched,))
 
-    # Fetch all results and print them
+    # Fetch all results and print each row
     rows = cur.fetchall()
     for row in rows:
         print(row)
