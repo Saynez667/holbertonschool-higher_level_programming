@@ -8,49 +8,35 @@ import sys
 import MySQLdb
 
 if __name__ == "__main__":
-    # Récupération des arguments
-    if len(sys.argv) != 5:
-        print("Usage: ./script.py <mysql_username> <mysql_password> <database_name> <state_name>")
-        sys.exit(1)
-
+    # Get arguments from command line
     mysql_username = sys.argv[1]
     mysql_password = sys.argv[2]
     database_name = sys.argv[3]
     state_name_searched = sys.argv[4]
 
-    # Connexion à la base de données
-    try:
-        db = MySQLdb.connect(
-            host="localhost",
-            port=3306,
-            user=mysql_username,
-            passwd=mysql_password,
-            db=database_name
-        )
-    except MySQLdb.Error as e:
-        print(f"Erreur de connexion: {e}")
-        sys.exit(1)
+    # Connect to MySQL database
+    db = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=mysql_username,
+        passwd=mysql_password,
+        db=database_name
+    )
 
-    # Création d'un curseur
+    # Create a cursor object to execute queries
     cur = db.cursor()
 
-    # Requête SQL avec format pour intégrer le nom d'état
+    # Create the SQL query using format to include user input
     query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name_searched)
 
-    # Exécution de la requête
-    try:
-        cur.execute(query)
-    except MySQLdb.Error as e:
-        print(f"Erreur d'exécution de la requête: {e}")
-        cur.close()
-        db.close()
-        sys.exit(1)
+    # Execute the query
+    cur.execute(query)
 
-    # Récupération et affichage des résultats
+    # Fetch all results and print them
     rows = cur.fetchall()
     for row in rows:
         print(row)
 
-    # Fermeture des ressources
+    # Close the cursor and database connection
     cur.close()
     db.close()
