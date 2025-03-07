@@ -4,7 +4,11 @@
 import MySQLdb
 import sys
 
-if __name__ == "__main__":
+def filter_states():
+    """Function that lists states starting with 'N'"""
+    if len(sys.argv) != 4:
+        return
+
     # Connect to the database
     db = MySQLdb.connect(
         host="localhost",
@@ -27,4 +31,3 @@ if __name__ == "__main__":
     # Close cursor and database connection
     cur.close()
     db.close()
-    
