@@ -3,46 +3,41 @@
 Script that safely fetches states matching a given name from `hbtn_0e_0_usa`,
 preventing SQL injection.
 """
-import MySQLdb
-import sys
 
+import sys
+import MySQLdb
 
 if __name__ == "__main__":
-    # Check if all 4 arguments are provided
-    if len(sys.argv) != 5:
-        print("Usage: {} username password database state".format(sys.argv[0]))
-        sys.exit(1)
+    """ Main execution: Connects to MySQL, queries the
+    database safely, and prints results. """
 
-    # Get command line arguments
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-    state_name = sys.argv[4]
+    """ Get arguments from the command line """
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    database_name = sys.argv[3]
+    state_name_searched = sys.argv[4]
 
-    # Connect to MySQL server
+    """ Connect to MySQL database """
     db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=username,
-        passwd=password,
-        db=database
+        host="localhost",  # MySQL server host
+        port=3306,  # Default MySQL port
+        user=mysql_username,  # MySQL username
+        passwd=mysql_password,  # MySQL password
+        db=database_name  # Database name
     )
 
-    # Create cursor to execute queries
-    cursor = db.cursor()
+    """ Create a cursor object to execute SQL queries """
+    cur = db.cursor()
 
-    # Execute SELECT query with parameterized query
-    query = """
-        SELECT * FROM states
-        WHERE name = %s
-        ORDER BY states.id
-        """
-    cursor.execute(query, (state_name,))
+    """ Execute a parameterized query to prevent SQL injection """
+    query = "SELECT * FROM states WHERE BINARY name = %s ORDER BY id ASC"
+    cur.execute(query, (state_name_searched,))
 
-    # Fetch and print results
-    for row in cursor.fetchall():
+    """ Fetch all results and print each row """
+    rows = cur.fetchall()
+    for row in rows:
         print(row)
 
-    # Close cursor and database connection
-    cursor.close()
+    """ Close the cursor and database connection """
+    cur.close()
     db.close()
