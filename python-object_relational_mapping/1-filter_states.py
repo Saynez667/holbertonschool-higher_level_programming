@@ -13,6 +13,7 @@ if __name__ == "__main__":
         passwd=sys.argv[2],
         db=sys.argv[3]
     )
+
     # Create a cursor
     cur = db.cursor()
 
@@ -27,3 +28,4 @@ if __name__ == "__main__":
     # Close cursor and database connection
     cur.close()
     db.close()
+    
