@@ -1,53 +1,43 @@
 #!/usr/bin/python3
 """
-    Script that lists all states from the database.
+Script that safely fetches states matching a given name from `hbtn_0e_0_usa`,
+preventing SQL injection.
 """
-import MySQLdb
+
 import sys
-
-
-def connectDb(user, password, db):
-    """
-    Connect to MySQL database
-    
-    Args:
-        user (str): MySQL username
-        password (str): MySQL password
-        db (str): Database name
-        
-    Returns:
-        Connection: MySQL database connection
-    """
-    return MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=user,
-        passwd=password,
-        db=db,
-        charset="utf8"
-    )
-
+import MySQLdb
 
 if __name__ == "__main__":
-    # Get command line arguments
-    user = sys.argv[1]
-    password = sys.argv[2]
-    db = sys.argv[3]
-    arg = sys.argv[4]
+    """ Main execution: Connects to MySQL, queries the
+    database safely, and prints results. """
 
-    # Connect to database
-    conn = connectDb(user, password, db)
-    cursor = conn.cursor()
+    """ Get arguments from the command line """
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    database_name = sys.argv[3]
+    state_name_searched = sys.argv[4]
 
-    # %s is a placeholder for the state name, preventing SQL injection
-    query = """ SELECT * FROM states WHERE states.name = %s
-        ORDER BY states.id ASC
-    """
-    cursor.execute(query, (arg,))
+    """ Connect to MySQL database """
+    db = MySQLdb.connect(
+        host="localhost",  # MySQL server host
+        port=3306,  # Default MySQL port
+        user=mysql_username,  # MySQL username
+        passwd=mysql_password,  # MySQL password
+        db=database_name  # Database name
+    )
 
-    # Fetch all the results of the query
-    rows = cursor.fetchall()
+    """ Create a cursor object to execute SQL queries """
+    cur = db.cursor()
+
+    """ Execute a parameterized query to prevent SQL injection """
+    query = "SELECT * FROM states WHERE BINARY name = %s ORDER BY id ASC"
+    cur.execute(query, (state_name_searched,))
+
+    """ Fetch all results and print each row """
+    rows = cur.fetchall()
     for row in rows:
         print(row)
-    cursor.close()
-    conn.close()
+
+    """ Close the cursor and database connection """
+    cur.close()
+    db.close()
