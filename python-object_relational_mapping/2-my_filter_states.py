@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Script that lists all states with a name matching the user input from
-the database hbtn_0e_0_usa
+Script that takes in an argument and displays all values in the states table
+where name matches the argument (safe from SQL injections).
 """
 
 import MySQLdb
@@ -25,17 +25,21 @@ def filter_states_by_user_input():
     # Create a cursor
     cur = db.cursor()
 
+    # Get the state name
     state_name = sys.argv[4]
 
-    # Execute the query using parameterized query
-    query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
-    cur.execute(query, (state_name,))
+    # Excexuter a query
+    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(
+        state_name
+    )
 
-    # Get and print the results
+    cur.execute(query)
+
+    # get the results
     for row in cur.fetchall():
         print(row)
 
-    # Close all cursors and database connection
+    # Close all cursors
     cur.close()
     db.close()
 
