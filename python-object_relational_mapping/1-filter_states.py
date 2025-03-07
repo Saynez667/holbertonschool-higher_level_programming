@@ -8,7 +8,8 @@ def filter_states():
     """Function that lists states starting with 'N'"""
     if len(sys.argv) != 4:
         return
-
+if __name__ == "__main__":
+    filter_states()
     # Connect to the database
     db = MySQLdb.connect(
         host="localhost",
