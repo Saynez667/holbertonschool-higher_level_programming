@@ -8,9 +8,9 @@ import MySQLdb
 import sys
 
 
-def filter_states():
-    """Function that lists states starting with 'N'"""
-    if len(sys.argv) != 4:
+def filter_states_by_user_input():
+    """Function that filters states by user input"""
+    if len(sys.argv) != 5:
         return
 
     #  Connect to the database
@@ -25,9 +25,11 @@ def filter_states():
     # Create a cursor
     cur = db.cursor()
 
+    state_name = sys.argv[4],
+
     # Execute the query
     cur.execute(
-        "SELECT * FROM states WHERE name LIKE BINARY 'N%' ORDER BY id ASC"
+        "SELECT * FROM states WHERE name LIKE BINARY '{}' ORDER BY id ASC".format(state_name)
     )
 
     # Get the results
@@ -40,4 +42,4 @@ def filter_states():
 
 
 if __name__ == "__main__":
-    filter_states()
+    filter_states_by_user_input()
